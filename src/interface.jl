@@ -2,7 +2,7 @@ _NI(x) = error("not implemented: $x")
 
 abstract type AbstractSemiringElement{T} end
 
-+(::Type{R}, ::Type{R}) where R <: AbstractSemiringElement = _NI("addition")
-*(::Type{R}, ::Type{R}) where R <: AbstractSemiringElement = _NI("multiplication")
-one(::Type{R}) where R <: AbstractSemiringElement = _NI("one() for $R")
-zero(::Type{R}) where R <: AbstractSemiringElement = _NI("zero() for $R")
++(::Type{AbstractSemiringElement}, ::Type{AbstractSemiringElement}) = _NI("addition")
+*(::Type{AbstractSemiringElement}, ::Type{AbstractSemiringElement}) = _NI("multiplication")
+one(::Type{AbstractSemiringElement}) = _NI("one() for $R")
+zero(::Type{AbstractSemiringElement}) = _NI("zero() for $R")
