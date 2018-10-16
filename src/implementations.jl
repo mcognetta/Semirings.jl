@@ -40,6 +40,19 @@ end
 zero(::Type{RealSemiringElement{T}}) where T = RealSemiringElement(zero(T))
 one(::Type{RealSemiringElement{T}}) where T = RealSemiringElement(one(T))
 
+# optional methods
+-(x::RealSemiringElement) = RealSemiringElement(-x.val)
+/(l::RealSemiringElement, r::RealSemiringElement) = RealSemiringElement(l.val/r.val)
+function star(x::RealSemiringElement)
+    0 <= x.val < 1 ? RealSemiringElement(1/(1-x.val)) : throw(DomainError("$x must be within [0, 1)"))
+end
+
+for op in (:conj,) # required for matrix inversion?
+    @eval begin
+        $op(x::RealSemiringElement) = RealSemiringElement($op(x.val))
+    end
+end
+
 # Boolean Semiring Implementation
 # The Boolean Semiring is over {True, False} with OR as addition and AND as multiplication
 # The zero element is False and the one element is True
@@ -53,3 +66,6 @@ end
 *(l::BooleanSemiringElement, r::BooleanSemiringElement) = BooleanSemiringElement(l.val | r.val)
 zero(::Type{BooleanSemiringElement{T}}) where T = BooleanSemiringElement{T}(zero(T))
 one(::Type{BooleanSemiringElement{T}}) where T = BooleanSemiringElement{T}(one(T))
+
+#optional methods
+star(x::R) where R<:BooleanSemiringElement = one(R)

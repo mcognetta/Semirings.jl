@@ -6,14 +6,14 @@ module Semirings
 
 # imports from base
 
-import Base: show, convert, zero, one, eltype, iszero, isone, promote_rule, promote
-import Base: +, *, ==
+import Base: show, convert, eltype, promote_rule, promote
+import Base: +, *, ==, -, /, inv, conj
+import Base: zero, one, iszero, isone
 
 # exporting types, new functions, and new symbols
 
 export AbstractSemiringElement
-export iszero, isone
-export ⊕, ⊙
+export ⊕, ⊙, star, mulinv, addinv
 export issamesemiring
 
 # export implementations
