@@ -7,7 +7,7 @@
     @test x != y != z
     @test x+y isa BooleanSemiringElement
     @test x*y isa BooleanSemiringElement
-    @test x+y == y+x == y
+    @test x+y == y+x == x
     @test x+z == z+x == z == x
 
     @test zero(BooleanSemiringElement) == y
@@ -115,4 +115,44 @@ end
     @test yp isa promote_type(typeof(x), typeof(y), typeof(z))
     @test zp isa promote_type(typeof(x), typeof(y), typeof(z))
     @test_throws MethodError promote(x, y, z, a)
+end
+
+@testset "test each implementation" begin
+    for S in (RealSemiringElement, MaxPlusSemiringElement, MinPlusSemiringElement)
+        for elty in (Int32, Int64, Float32, Float64, Rational)
+            x = S(elty(5))
+            y = S(elty(6))
+            z = S(elty(2))
+            @test x+zero(x) == zero(x) + x == x
+            @test x*one(x) == one(x)*x == x
+            @test zero(x)*(x+y) == (x+y)*zero(x) == zero(x)
+            @test (x+y)*z == x*z + y*z
+            @test z*(x+y) == z*x + z*y
+        end
+    end
+
+    x = BooleanSemiringElement(true)
+    y = BooleanSemiringElement(false)
+    z = BooleanSemiringElement(true)
+
+    @test x+zero(x) == zero(x) + x == x
+    @test x*one(x) == one(x)*x == x
+    @test zero(x)*(x+y) == (x+y)*zero(x) == zero(x)
+    @test (x+y)*z == x*z + y*z
+    @test z*(x+y) == z*x + z*y
+
+    # optional methods defined for RealSemiringElements
+
+    x = RealSemiringElement(3.0)
+    y = RealSemiringElement(0.5)
+
+    @test x-x == zero(x)
+    @test x/x == one(x)
+    @test x/y == RealSemiringElement(3.0/0.5)
+    @test x*inv(x) == one(x)
+    @test_throws DomainError star(x)
+    @test star(y) == RealSemiringElement(1/(1-.5))
+
+    @test y+addinv(y) == addinv(y)+y == zero(y)
+    @test y*mulinv(y) == mulinv(y)*y == one(y)
 end

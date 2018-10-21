@@ -10,8 +10,8 @@ end
 val(x::MaxPlusSemiringElement) = x.val
 +(l::MaxPlusSemiringElement, r::MaxPlusSemiringElement) = MaxPlusSemiringElement(max(l.val, r.val))
 *(l::MaxPlusSemiringElement, r::MaxPlusSemiringElement) = MaxPlusSemiringElement(l.val+r.val)
-zero(::Type{MaxPlusSemiringElement{T}}) where T = MaxPlusSemiringElement{T}(typemin(T))
-one(::Type{MaxPlusSemiringElement{T}}) where T = MaxPlusSemiringElement{T}(zero(T))
+zero(::Type{MaxPlusSemiringElement{T}}) where T = MaxPlusSemiringElement(-Inf)
+one(::Type{MaxPlusSemiringElement{T}}) where T = MaxPlusSemiringElement{T}(0)
 
 # MinPlus Semiring Implementation
 # MinPlus is over real numbers with min as addition and + as multiplication
@@ -25,8 +25,8 @@ end
 val(x::MinPlusSemiringElement) = x.val
 +(l::MinPlusSemiringElement, r::MinPlusSemiringElement) = MinPlusSemiringElement(min(l.val, r.val))
 *(l::MinPlusSemiringElement, r::MinPlusSemiringElement) = MinPlusSemiringElement(l.val+r.val)
-zero(::Type{MinPlusSemiringElement{T}}) where T = MinPlusSemiringElement{T}(typemax(T))
-one(::Type{MinPlusSemiringElement{T}}) where T = MinPlusSemiringElement{T}(zero(T))
+zero(::Type{MinPlusSemiringElement{T}}) where T = MinPlusSemiringElement(Inf)
+one(::Type{MinPlusSemiringElement{T}}) where T = MinPlusSemiringElement{T}(0)
 
 # Real (or Probabilistic) Semiring Implementation
 # The Real Semiring is over real numbers with + as addition and * as multiplication
@@ -40,8 +40,8 @@ end
 val(x::RealSemiringElement) = x.val
 +(l::RealSemiringElement, r::RealSemiringElement) = RealSemiringElement(l.val+r.val)
 *(l::RealSemiringElement, r::RealSemiringElement) = RealSemiringElement(l.val*r.val)
-zero(::Type{RealSemiringElement{T}}) where T = RealSemiringElement(zero(T))
-one(::Type{RealSemiringElement{T}}) where T = RealSemiringElement(one(T))
+zero(::Type{RealSemiringElement{T}}) where T = RealSemiringElement(0)
+one(::Type{RealSemiringElement{T}}) where T = RealSemiringElement(1)
 
 # optional methods
 -(x::RealSemiringElement) = RealSemiringElement(-x.val)
@@ -66,10 +66,10 @@ end
 
 # interface methods
 val(x::BooleanSemiringElement) = x.val
-+(l::BooleanSemiringElement, r::BooleanSemiringElement) = BooleanSemiringElement(l.val & r.val)
-*(l::BooleanSemiringElement, r::BooleanSemiringElement) = BooleanSemiringElement(l.val | r.val)
-zero(::Type{BooleanSemiringElement{T}}) where T = BooleanSemiringElement{T}(zero(T))
-one(::Type{BooleanSemiringElement{T}}) where T = BooleanSemiringElement{T}(one(T))
++(l::BooleanSemiringElement, r::BooleanSemiringElement) = BooleanSemiringElement(l.val | r.val)
+*(l::BooleanSemiringElement, r::BooleanSemiringElement) = BooleanSemiringElement(l.val & r.val)
+zero(::Type{BooleanSemiringElement{T}}) where T = BooleanSemiringElement{T}(false)
+one(::Type{BooleanSemiringElement{T}}) where T = BooleanSemiringElement{T}(true)
 
 #optional methods
 star(x::R) where R<:BooleanSemiringElement = one(R)
