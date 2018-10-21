@@ -1,12 +1,12 @@
 eltype(::Type{R}) where {T, R<:AbstractSemiringElement{T}} = T
 
-==(l::R, r::S) where {R<:AbstractSemiringElement, S<:AbstractSemiringElement} = issamesemiring(R, S) ? val(l) == val(r) : error("incompatable semirings")
+==(l::R, r::S) where {R<:AbstractSemiringElement, S<:AbstractSemiringElement} = issamesemiring(R, S) ? val(l) == val(r) : DomainError("incompatable semirings")
 
 iszero(x::R) where {R<:AbstractSemiringElement} = x == zero(R)
 isone(x::R) where {R<:AbstractSemiringElement} = x == one(R)
 convert(::Type{R}, x) where R<:AbstractSemiringElement = R(x)
 convert(::Type{R}, x::Number) where R<:AbstractSemiringElement = R(x) # resolving ambiguity
-convert(::Type{R}, x::S) where {R<:AbstractSemiringElement, S<:AbstractSemiringElement} = issamesemiring(R, S) ? R(val(x)) : error("incompatable semirings")
+convert(::Type{R}, x::S) where {R<:AbstractSemiringElement, S<:AbstractSemiringElement} = issamesemiring(R, S) ? R(val(x)) : DomainError("incompatable semirings")
 
 zero(::R) where R<:AbstractSemiringElement = zero(R)
 one(::R) where R<:AbstractSemiringElement = one(R)
@@ -20,10 +20,10 @@ end
 promote(::Type{R}, x::R) where R<:AbstractSemiringElement = x
 function promote(::Type{R}, x::S) where {R<:AbstractSemiringElement, S<:AbstractSemiringElement}
     if !issamesemiring(R, S)
-        error("incompatable semirings")
+        DomainError("incompatable semirings")
     else
         Z = promote_rule(R, S)
-        Z == S ? error("$S cannot be promoted to $R") : Z(val(x))
+        Z == S ? DomainError("$S cannot be promoted to $R") : Z(val(x))
     end
 end
 
@@ -38,6 +38,7 @@ end
 
 semiring(::S) where S<: AbstractSemiringElement = S
 issamesemiring(::Type{R}, ::Type{S}) where {R<:AbstractSemiringElement, S<: AbstractSemiringElement} = !isabstracttype(typejoin(R, S))
+issamesemiring(x::R, y::S) where {S<:AbstractSemiringElement, R<:AbstractSemiringElement} = issamesemiring(R, S)
 
 # implementations stemming from the optional interface
 

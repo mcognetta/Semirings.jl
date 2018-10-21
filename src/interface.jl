@@ -1,5 +1,7 @@
+# TODO: make these domain errors
 _NI(x) = error("not implemented: $x")
 _ND(x) = error("$x not defined for this semiring")
+
 abstract type AbstractSemiringElement{T} <: Number end
 
 # mandatory methods

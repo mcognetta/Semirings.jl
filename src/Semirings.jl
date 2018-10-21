@@ -14,7 +14,7 @@ import Base: zero, one, iszero, isone
 
 export AbstractSemiringElement
 export ⊕, ⊙, star, mulinv, addinv
-export issamesemiring
+export issamesemiring, semiring
 
 # export implementations
 
