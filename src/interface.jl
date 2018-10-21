@@ -3,6 +3,7 @@ _ND(x) = error("$x not defined for this semiring")
 abstract type AbstractSemiringElement{T} <: Number end
 
 # mandatory methods
+val(::AbstractSemiringElement) = _NI("value")
 +(::AbstractSemiringElement, ::AbstractSemiringElement) = _NI("addition")
 *(::AbstractSemiringElement, ::AbstractSemiringElement) = _NI("multiplication")
 one(::Type{AbstractSemiringElement}) = _NI("one() for $R")

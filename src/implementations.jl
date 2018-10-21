@@ -7,6 +7,7 @@ struct MaxPlusSemiringElement{T<:Real} <: AbstractSemiringElement{T}
 end
 
 # interface methods
+val(x::MaxPlusSemiringElement) = x.val
 +(l::MaxPlusSemiringElement, r::MaxPlusSemiringElement) = MaxPlusSemiringElement(max(l.val, r.val))
 *(l::MaxPlusSemiringElement, r::MaxPlusSemiringElement) = MaxPlusSemiringElement(l.val+r.val)
 zero(::Type{MaxPlusSemiringElement{T}}) where T = MaxPlusSemiringElement{T}(typemin(T))
@@ -21,6 +22,7 @@ struct MinPlusSemiringElement{T<:Real} <: AbstractSemiringElement{T}
 end
 
 # interface methods
+val(x::MinPlusSemiringElement) = x.val
 +(l::MinPlusSemiringElement, r::MinPlusSemiringElement) = MinPlusSemiringElement(min(l.val, r.val))
 *(l::MinPlusSemiringElement, r::MinPlusSemiringElement) = MinPlusSemiringElement(l.val+r.val)
 zero(::Type{MinPlusSemiringElement{T}}) where T = MinPlusSemiringElement{T}(typemax(T))
@@ -35,6 +37,7 @@ struct RealSemiringElement{T<:Real} <: AbstractSemiringElement{T}
 end
 
 # interface methods
+val(x::RealSemiringElement) = x.val
 +(l::RealSemiringElement, r::RealSemiringElement) = RealSemiringElement(l.val+r.val)
 *(l::RealSemiringElement, r::RealSemiringElement) = RealSemiringElement(l.val*r.val)
 zero(::Type{RealSemiringElement{T}}) where T = RealSemiringElement(zero(T))
@@ -62,6 +65,7 @@ struct BooleanSemiringElement{Bool} <: AbstractSemiringElement{Bool}
 end
 
 # interface methods
+val(x::BooleanSemiringElement) = x.val
 +(l::BooleanSemiringElement, r::BooleanSemiringElement) = BooleanSemiringElement(l.val & r.val)
 *(l::BooleanSemiringElement, r::BooleanSemiringElement) = BooleanSemiringElement(l.val | r.val)
 zero(::Type{BooleanSemiringElement{T}}) where T = BooleanSemiringElement{T}(zero(T))

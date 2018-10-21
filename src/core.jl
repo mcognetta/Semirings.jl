@@ -1,12 +1,12 @@
 eltype(::Type{R}) where {T, R<:AbstractSemiringElement{T}} = T
 
-==(l::R, r::S) where {R<:AbstractSemiringElement, S<:AbstractSemiringElement} = issamesemiring(R, S) ? l.val == r.val : error("incompatable semirings")
+==(l::R, r::S) where {R<:AbstractSemiringElement, S<:AbstractSemiringElement} = issamesemiring(R, S) ? val(l) == val(r) : error("incompatable semirings")
 
 iszero(x::R) where {R<:AbstractSemiringElement} = x == zero(R)
 isone(x::R) where {R<:AbstractSemiringElement} = x == one(R)
 convert(::Type{R}, x) where R<:AbstractSemiringElement = R(x)
 convert(::Type{R}, x::Number) where R<:AbstractSemiringElement = R(x) # resolving ambiguity
-convert(::Type{R}, x::S) where {R<:AbstractSemiringElement, S<:AbstractSemiringElement} = issamesemiring(R, S) ? R(x.val) : error("incompatable semirings")
+convert(::Type{R}, x::S) where {R<:AbstractSemiringElement, S<:AbstractSemiringElement} = issamesemiring(R, S) ? R(val(x)) : error("incompatable semirings")
 
 zero(::R) where R<:AbstractSemiringElement = zero(R)
 one(::R) where R<:AbstractSemiringElement = one(R)
@@ -23,16 +23,20 @@ function promote(::Type{R}, x::S) where {R<:AbstractSemiringElement, S<:Abstract
         error("incompatable semirings")
     else
         Z = promote_rule(R, S)
-        Z == S ? error("$S cannot be promoted to $R") : Z(x.val)
+        Z == S ? error("$S cannot be promoted to $R") : Z(val(x))
     end
 end
 
-⊕(l::AbstractSemiringElement, r::AbstractSemiringElement) = +(l,r) 
-⊙(l::AbstractSemiringElement, r::AbstractSemiringElement) = *(l,r)
+# \oplus and \otimes alias for + and *
 
-#(::Type{R})(v::T) where {T, R<:AbstractSemiringElement{T}} = R(v)
+⊕(l::AbstractSemiringElement, r::AbstractSemiringElement) = +(l, r) 
+⊙(l::AbstractSemiringElement, r::AbstractSemiringElement) = *(l, r)
+
 (::Type{R})(v::T) where {T, R<:AbstractSemiringElement} = R(convert(T, v))
 
+# some operations on the semiring type
+
+semiring(::S) where S<: AbstractSemiringElement = S
 issamesemiring(::Type{R}, ::Type{S}) where {R<:AbstractSemiringElement, S<: AbstractSemiringElement} = !isabstracttype(typejoin(R, S))
 
 # implementations stemming from the optional interface
