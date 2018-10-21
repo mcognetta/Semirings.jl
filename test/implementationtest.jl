@@ -99,4 +99,20 @@ end
     @test F+F == G
     @test F*F == H
     @test F*I == J
+
+    @test A+C isa Matrix{MaxPlusSemiringElement{Float64}}
+end
+
+@testset "promotion" begin
+    x = MinPlusSemiringElement(3)
+    y = MinPlusSemiringElement(4.0)
+    z = MinPlusSemiringElement(5//3)
+    a = MaxPlusSemiringElement(1)
+
+    @test promote_type(typeof(x), typeof(y), typeof(z)) == MinPlusSemiringElement{Float64}
+    xp, yp, zp = promote(x, y, z)
+    @test xp isa promote_type(typeof(x), typeof(y), typeof(z))
+    @test yp isa promote_type(typeof(x), typeof(y), typeof(z))
+    @test zp isa promote_type(typeof(x), typeof(y), typeof(z))
+    @test_throws MethodError promote(x, y, z, a)
 end

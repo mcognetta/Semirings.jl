@@ -6,7 +6,7 @@ module Semirings
 
 # imports from base
 
-import Base: show, convert, eltype, promote_rule, promote
+import Base: show, convert, eltype, promote_rule
 import Base: +, *, ==, -, /, inv, conj
 import Base: zero, one, iszero, isone
 
