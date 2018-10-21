@@ -1,4 +1,4 @@
-The Polynomials.jl package is licensed under the MIT "Expat" License:
+The Semirings.jl package is licensed under the MIT "Expat" License:
 
 > Copyright (c) 2018: Marco Cognetta.
 >
