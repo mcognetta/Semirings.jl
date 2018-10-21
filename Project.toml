@@ -4,6 +4,7 @@ authors = ["mcognetta <cognetta.marco@gmail.com>"]
 version = "0.1.0"
 
 [deps]
+Coverage = "a2441757-f6aa-5fb2-8edb-039e3f45d037"
 Pkg = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"
 SimpleTraits = "699a6c99-e7fa-54fc-8d76-47d257e15c1d"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
