@@ -10,8 +10,8 @@ This provides implementations for several important semirings as well as a small
 
 Provided semirings:
 - Real Semiring: `RealSemiringElement` - `(R, +, *, 0, 1)`
-- Max Plus: `MaxPlusSemiringElement` - `(R, max, +, -, -∞, 0)`
-- Min Plus: `MinPlusSemiringElement` - `(R, min, +, -,  ∞, 0)`
+- Max Plus: `MaxPlusSemiringElement` - `(R, max, +, -∞, 0)`
+- Min Plus: `MinPlusSemiringElement` - `(R, min, +, ∞, 0)`
 - Boolean: `BooleanSemiringElement` - `({False, True}, OR, AND, False, True)`
 
 Suppose we wish to define the `MySemiring` semiring. First make the type:
