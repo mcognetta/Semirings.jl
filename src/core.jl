@@ -10,6 +10,7 @@ isone(x::R) where {R<:AbstractSemiringElement} = x == one(R)
 convert(::Type{R}, x) where R<:AbstractSemiringElement = R(x)
 convert(::Type{R}, x::Number) where R<:AbstractSemiringElement = R(x) # resolving ambiguity
 convert(::Type{R}, x::S) where {R<:AbstractSemiringElement, S<:AbstractSemiringElement} = issamesemiring(R, S) ? R(val(x)) : DomainError("incompatable semirings")
+convert(::Type{R}, x::R) where R<:AbstractSemiringElement = x
 
 promote_rule(::Type{R}, ::Type{R}) where R<:AbstractSemiringElement = R
 function promote_rule(::Type{R}, ::Type{S}) where {T, U, R<:AbstractSemiringElement{T}, S<:AbstractSemiringElement{U}}
