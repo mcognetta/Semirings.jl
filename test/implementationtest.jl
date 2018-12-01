@@ -1,3 +1,5 @@
+using SimpleTraits
+
 @testset "basic functionality test" begin
     x = BooleanSemiringElement(true)
     y = BooleanSemiringElement(false)
@@ -155,4 +157,35 @@ end
 
     @test y+addinv(y) == addinv(y)+y == zero(y)
     @test y*mulinv(y) == mulinv(y)*y == one(y)
+end
+
+@testset "traits" begin
+    @traitfn commutativetest(x::X) where {X; IsCommutative{X}} = true
+    @traitfn commutativetest(x::X) where {X; !IsCommutative{X}} = false
+
+    @traitfn idempotenttest(x::X) where {X; IsIdempotent{X}} = true
+    @traitfn idempotenttest(x::X) where {X; !IsIdempotent{X}} = false
+
+    @traitfn startest(x::X) where {X; IsStar{X}} = true
+    @traitfn startest(x::X) where {X; !IsStar{X}} = false
+
+    w = BooleanSemiringElement(true)
+    x = MaxPlusSemiringElement(3.0)
+    y = MinPlusSemiringElement(5.0)
+    z = RealSemiringElement(2)
+
+    @test commutativetest(w)
+    @test commutativetest(x)
+    @test commutativetest(y)
+    @test commutativetest(z)
+
+    @test idempotenttest(w)
+    @test idempotenttest(x)
+    @test idempotenttest(y)
+    @test !idempotenttest(z)
+
+    @test startest(w)
+    @test startest(x)
+    @test startest(y)
+    @test startest(z)
 end

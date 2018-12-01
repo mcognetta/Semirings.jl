@@ -2,7 +2,7 @@ module Semirings
 
 # SimpleTraits is only used for a secondary hierarchy of semirings (commutative, idempotent, etc)
 
-# using SimpleTraits
+using SimpleTraits
 
 # imports from base
 
@@ -16,6 +16,9 @@ export AbstractSemiringElement
 export ⊕, ⊙, star, mulinv, addinv
 export issamesemiring, semiring
 
+# traits
+export IsCommutative, iscommutative, IsIdempotent, isidempotent, IsStar, isstar
+
 # export implementations
 
 export MaxPlusSemiringElement, MinPlusSemiringElement, RealSemiringElement, BooleanSemiringElement
@@ -23,6 +26,7 @@ export MaxPlusSemiringElement, MinPlusSemiringElement, RealSemiringElement, Bool
 # includes
 
 include("interface.jl")
+include("traits.jl")
 include("core.jl")
 include("implementations.jl")
 

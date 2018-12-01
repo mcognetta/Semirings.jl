@@ -13,6 +13,10 @@ val(x::MaxPlusSemiringElement) = x.val
 zero(::Type{MaxPlusSemiringElement{T}}) where T = MaxPlusSemiringElement(-Inf)
 one(::Type{MaxPlusSemiringElement{T}}) where T = MaxPlusSemiringElement{T}(0)
 
+iscommutative(::Type{<:MaxPlusSemiringElement}) = true
+isidempotent(::Type{<:MaxPlusSemiringElement}) = true
+isstar(::Type{<:MaxPlusSemiringElement}) = true
+
 # MinPlus Semiring Implementation
 # MinPlus is over real numbers with min as addition and + as multiplication
 # The zero element is +inf and the one element is 0
@@ -28,6 +32,11 @@ val(x::MinPlusSemiringElement) = x.val
 zero(::Type{MinPlusSemiringElement{T}}) where T = MinPlusSemiringElement(Inf)
 one(::Type{MinPlusSemiringElement{T}}) where T = MinPlusSemiringElement{T}(0)
 
+iscommutative(::Type{<:MinPlusSemiringElement}) = true
+isidempotent(::Type{<:MinPlusSemiringElement}) = true
+isstar(::Type{<:MinPlusSemiringElement}) = true
+
+
 # Real (or Probabilistic) Semiring Implementation
 # The Real Semiring is over real numbers with + as addition and * as multiplication
 # The zero element is 0 and the one element is 1
@@ -42,6 +51,9 @@ val(x::RealSemiringElement) = x.val
 *(l::RealSemiringElement, r::RealSemiringElement) = RealSemiringElement(l.val*r.val)
 zero(::Type{RealSemiringElement{T}}) where T = RealSemiringElement(0)
 one(::Type{RealSemiringElement{T}}) where T = RealSemiringElement(1)
+
+iscommutative(::Type{<:RealSemiringElement}) = true
+isstar(::Type{<:RealSemiringElement}) = true
 
 # optional methods
 -(x::RealSemiringElement) = RealSemiringElement(-x.val)
@@ -70,6 +82,10 @@ val(x::BooleanSemiringElement) = x.val
 *(l::BooleanSemiringElement, r::BooleanSemiringElement) = BooleanSemiringElement(l.val & r.val)
 zero(::Type{BooleanSemiringElement{T}}) where T = BooleanSemiringElement{T}(false)
 one(::Type{BooleanSemiringElement{T}}) where T = BooleanSemiringElement{T}(true)
+
+iscommutative(::Type{<:BooleanSemiringElement}) = true
+isidempotent(::Type{<:BooleanSemiringElement}) = true
+isstar(::Type{<:BooleanSemiringElement}) = true
 
 #optional methods
 star(x::R) where R<:BooleanSemiringElement = one(R)
