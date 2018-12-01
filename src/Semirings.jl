@@ -13,7 +13,7 @@ import Base: zero, one, iszero, isone
 # exporting types, new functions, and new symbols
 
 export AbstractSemiringElement
-export ⊕, ⊙, star, mulinv, addinv
+export ⊕, ⊙, star, mulinv, addinv, val
 export issamesemiring, semiring
 
 # traits
