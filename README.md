@@ -38,7 +38,15 @@ When applicable, one can implement:
 
 and the associated semiring functionality will then be defined automatically.
 
+#### Traits
+We use [SimpleTraits](https://github.com/mauro3/SimpleTraits.jl) to add additional dispatch capabilities for semirings. These traits encode structural properties of the semiring (commutative, idempotent, star, etc). We currently have support for:
+1. Commutative - `IsCommutative`/`iscommutative` - semirings with commutative multiplication
+2. Idempotent - `IsIdempotent`/`isidempotent` - semirings with idempotent addition
+3. Star - `IsStar`/`isstar` - semirings with a defined star operator
+
+If your semiring has one of these traits, you can connect them by defining (for example) `isidempotent(::Type{<:MySemiringElement}) = true`. New traits can be defined by following the template in `src/traits.jl`.
+
 ## To do
-1. Adding `SimpleTraits` to denote semiring properties (idempotent, nilpotent, complete, division, etc)
-2. Better operator for `star`
-3. Include `conj` in the docs or work around it for `RealSemiringElements`
+- [x] Adding `SimpleTraits` to denote semiring properties (idempotent, nilpotent, complete, division, etc)
+- [] Better operator for `star`
+- [] Include `conj` in the docs or work around it for `RealSemiringElements`

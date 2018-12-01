@@ -8,7 +8,6 @@ is_commutative(x) = false
 @traitimpl IsIdempotent{S} <- isidempotent(S)
 isidempotent(::Type{<:AbstractSemiringElement}) = false
 
-
 # Star semirings have an additional unary operator `*`: `a^* = \sum_{i = 0}^{\infty} a^i`.
 @traitdef IsStar{S<:AbstractSemiringElement}
 @traitimpl IsStar{S} <- isstar(S)
