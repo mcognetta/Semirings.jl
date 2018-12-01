@@ -7,7 +7,7 @@ using SimpleTraits
 # imports from base
 
 import Base: show, convert, eltype, promote_rule
-import Base: +, *, ==, -, /, inv, conj
+import Base: +, *, ==, -, /, inv, conj, ≈
 import Base: zero, one, iszero, isone
 
 # exporting types, new functions, and new symbols

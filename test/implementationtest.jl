@@ -116,7 +116,7 @@ end
     @test xp isa promote_type(typeof(x), typeof(y), typeof(z))
     @test yp isa promote_type(typeof(x), typeof(y), typeof(z))
     @test zp isa promote_type(typeof(x), typeof(y), typeof(z))
-    @test_throws MethodError promote(x, y, z, a)
+    @test_throws DomainError promote(x, y, z, a)
 end
 
 @testset "test each implementation" begin
