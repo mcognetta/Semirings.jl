@@ -48,5 +48,5 @@ If your semiring has one of these traits, you can connect them by defining (for 
 
 ## To do
 - [x] Adding `SimpleTraits` to denote semiring properties (idempotent, nilpotent, complete, division, etc)
-- [] Better operator for `star`
-- [] Include `conj` in the docs or work around it for `RealSemiringElements`
+- [ ] Better operator for `star`
+- [ ] Include `conj` in the docs or work around it for `RealSemiringElements`
